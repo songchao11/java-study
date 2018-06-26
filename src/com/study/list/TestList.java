@@ -13,15 +13,13 @@ public class TestList {
 //		list1.add("aa");
 //		list1.add("ww");
 //		System.out.println(lists.get(0));
-		
-		List<String> strs = new LinkedList<String>();
-		strs.add("zhangsan");
-		strs.add("lisi");
-		strs.add("wangwu");
-		for(String s : strs){
-			System.out.println(s);
+		List s = new ArrayList();
+		s.add("A");
+		s.add("B");
+		List<String> strs = new ArrayList<String>(s);
+		for(String a : strs){
+			System.out.println(a);
 		}
-		
 	}
 
 }
