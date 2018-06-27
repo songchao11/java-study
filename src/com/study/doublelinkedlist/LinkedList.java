@@ -183,5 +183,32 @@ public class LinkedList<T> {
 		}
 	}
 	
+	/*
+	 * 删除指定节点,并返回指定节点元素的值
+	 */
+	public T unLink(Node<T> x){
+		T element = x.item;
+		Node<T> next = x.next;
+		Node<T> prev = x.prev;
+		//若prev为null,则说明x为头结点,此时只要将next置为新的头结点,否则将prev的next指向next,x的prev置为null
+		if(prev == null){
+			first = next;
+		}else{
+			prev.next = next;
+			x.prev = null;
+		}
+		//若next为null,则说明x为尾节点,此时只要将prev置为新的尾节点,否则将next的prev指向prev,x的next置为null
+		if(next == null){
+			last = prev;
+		}else{
+			next.prev = prev;
+			x.next = null;
+		}
+		x.item = null;
+		size--;
+		modCount++;
+		return element;
+	}
+	
 
 }
