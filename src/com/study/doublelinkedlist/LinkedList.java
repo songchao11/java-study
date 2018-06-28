@@ -14,8 +14,8 @@ public class LinkedList<T> {
 	 */
 	private static class Node<T>{
 		T item;
-		Node<T> next;
-		Node<T> prev;
+		Node<T> prev;//前置节点
+		Node<T> next;//后置节点
 		public Node(Node<T> prev, T item, Node<T> next) {
 			this.item = item;
 			this.next = next;
@@ -24,12 +24,12 @@ public class LinkedList<T> {
 	}
 	
 	/*
-	 * 第一个节点的引用
+	 * 第一个节点的引用(头)
 	 */
 	Node<T> first;
 	
 	/*
-	 * 最后一个节点的引用
+	 * 最后一个节点的引用(尾)
 	 */
 	Node<T> last;
 	
@@ -123,7 +123,7 @@ public class LinkedList<T> {
 	 * ④首先判断指定节点B的前驱是否为null.如果为null,就直接将节点S设为头结点;
 	 * 如果不为null,就将节点A的后置指针更改为S
 	 */
-	public void linkBefore(T t, Node<T> succ){
+	private void linkBefore(T t, Node<T> succ){
 		//获得指定节点的前驱
 		Node<T> pred = succ.prev;
 		//新建节点newNode,前置指针指向pred,后置指针指向succ
@@ -142,7 +142,7 @@ public class LinkedList<T> {
 	/*
 	 * 根据下标获取指定节点(下标从零开始)
 	 */
-	public Node<T> node(int index){
+	private Node<T> node(int index){
 		Node<T> x = first;
 		for(int i = 0;i < index;i++){
 			x = x.next;
@@ -151,8 +151,11 @@ public class LinkedList<T> {
 	}
 	/*
 	 * 上面node方法优化
+	 * 步骤:
+	 * 判断index是否小于size的一半,若小,则从头节点向后遍历
+	 * 若大,则从尾节点向前遍历
 	 */
-	public Node<T> nodeOptimizing(int index){
+	private Node<T> nodeOptimizing(int index){
 		Node<T> x = null;
 		if(index < size/2){
 			x = first;
@@ -177,16 +180,67 @@ public class LinkedList<T> {
 	/*
 	 * 检查下标的合法性
 	 */
-	public void checkIndex(int index) throws Exception{
-		if(!(index >= 0 && index < size)){
+	private void checkIndex(int index) throws Exception{
+		if(index < 0 || index > size){
 			throw new Exception("下标非法异常");
 		}
 	}
 	
 	/*
-	 * 删除指定节点,并返回指定节点元素的值
+	 * 删除指定位置元素
 	 */
-	public T unLink(Node<T> x){
+	public T remove(int index) throws Exception{
+		checkIndex(index);
+		return unLink(nodeOptimizing(index));
+	}
+	
+	/*
+	 * 删除指定元素
+	 * 步骤:
+	 * ①首先判断obj是否为null,若为null,需要用"==";不为null,就使用equals
+	 * ②循环遍历找到obj对应的节点并删除
+	 */
+	public boolean remove(Object obj){
+		Node<T> x = first;
+		if(obj == null){
+			while(x.item != obj){
+				//没有找到需要删除的节点
+				if(x.next == null){
+					return false;
+				}
+				x = x.next;
+			}
+			unLink(x);
+			return true;
+		}else{
+			while(!x.item.equals(obj)){
+				if(x.next == null){
+					return false;
+				}
+				x = x.next;
+			}
+			unLink(x);
+			return true;
+		}
+	}
+	
+	/*
+	 * 在指定位置添加元素
+	 */
+	public void add(int index, T t) throws Exception{
+		checkIndex(index);
+		linkBefore(t, nodeOptimizing(index));
+	}
+	
+	/*
+	 * 删除指定节点,并返回指定节点元素的值
+	 * 步骤:
+	 * ①获取指定节点的前置节点(prev)和后置节点(next)
+	 * ②若前置节点为null,则说明x为头结点,此时只要将next置为新的头结点即可,否则就将prev的next指向next,并把x的prev置为null
+	 * ③若后置节点为null,则说明x为尾节点,此时只要将prev置为新的尾节点,否则将后置节点的prev指向prev,并把x的next置为null
+	 * ④将x的item置为null,size-1
+	 */
+	private T unLink(Node<T> x){
 		T element = x.item;
 		Node<T> next = x.next;
 		Node<T> prev = x.prev;
@@ -210,5 +264,14 @@ public class LinkedList<T> {
 		return element;
 	}
 	
+	/*
+	 * 设置指定位置的值
+	 */
+	public boolean set(int index, T t) throws Exception{
+		checkIndex(index);
+		Node<T> x = nodeOptimizing(index);
+		x.item = t;
+		return true;
+	}
 
 }

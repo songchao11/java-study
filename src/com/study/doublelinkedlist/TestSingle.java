@@ -2,7 +2,7 @@ package com.study.doublelinkedlist;
 
 public class TestSingle {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SingleLinkedList<String> sList = new SingleLinkedList<String>();
 		System.out.println(sList.isEmpty());
 		sList.add("AA");
@@ -22,11 +22,13 @@ public class TestSingle {
 			System.out.print(sList.get(i)+"\t");
 		}
 		System.out.println();
-		sList.remove("KK");
-		sList.set(7, "HAHAHA");
+		sList.remove(5);
+		sList.set(6, "HAHAHA");
 		for(int i = 0;i < sList.size();i++){
 			System.out.print(sList.get(i)+"\t");
 		}
+		System.out.println();
+		System.out.println(sList.get(2));
 		
 	}
 

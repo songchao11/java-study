@@ -2,7 +2,7 @@ package com.study.doublelinkedlist;
 
 public class Test {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		LinkedList<String> list = new LinkedList<String>();
 		list.add("zhangsan");
 		list.add("lisi");
@@ -16,12 +16,23 @@ public class Test {
 		list.add("OPT");
 //		list.linkFirst("AAA");
 //		list.linkFirst("BBB");
-		try {
-			System.out.println(list.size());
-			System.out.println(list.get(7));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("下标非法异常");
+		for(int i = 0;i < list.size();i++){
+			System.out.print(list.get(i)+"\t");
+		}
+		System.out.println();
+		list.remove("WW");
+		for(int i = 0;i < list.size();i++){
+			System.out.print(list.get(i)+"\t");
+		}
+		System.out.println();
+		list.add(2, "XX");
+		for(int i = 0;i < list.size();i++){
+			System.out.print(list.get(i)+"\t");
+		}
+		System.out.println();
+		list.set(33, "OO");
+		for(int i = 0;i < list.size();i++){
+			System.out.print(list.get(i)+"\t");
 		}
 	}
 

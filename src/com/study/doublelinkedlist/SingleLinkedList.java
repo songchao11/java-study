@@ -1,7 +1,7 @@
 package com.study.doublelinkedlist;
 
 /**
- * 单链表
+ * 单链表实现类
  * @author song
  *
  */
@@ -118,7 +118,8 @@ public class SingleLinkedList<T> {
 	/*
 	 * 根据下标获取元素
 	 */
-	public T get(int index){
+	public T get(int index) throws Exception{
+		checkIndex(index);
 		return node(index).item;
 	}
 	
@@ -138,17 +139,23 @@ public class SingleLinkedList<T> {
 	
 	/*
 	 * 删除指定元素,如果有多个相同元素,就删除第一个
+	 * 注意:若链表里面有两个或两个以上的相同元素,只移除第一个找到的元素
 	 * 步骤:
-	 * ①定义两个节点:一个是需要删除元素的节点currnet,另一个是需要删除节点的上一个节点previous(都让他们从head节点开始)
-	 * 
+	 * ①定义两个节点:一个是需要删除元素的节点current,另一个是需要删除节点的上一个节点previous(都让他们从head节点开始)
+	 * ②然后通过需要删除的元素obj,找到obj所对应的节点以及上一个节点
+	 * ③若被删除的节点是头结点(此时current和previous都是head节点),就直接将head的下一个节点重新定义为头结点
+	 * ④若删除的节点不是头结点,就将被删除的上一个节点(previous)的next指向被删除节点(current)的下一个节点
+	 * ⑤再将size-1
 	 */
-	public boolean remove(Object o){
+	public boolean remove(Object obj){
+		//判断链表是否为空
 		if(size == 0){
 			return false;
 		}
 		Node<T> current = head;//将要被删除的节点
 		Node<T> previous = head;//被删除节点的上一个节点
-		while(current.item != o){
+		while(current.item != obj){
+			//current.next为null就说明整个链表已遍历结束,但没有找到需要被删除的元素
 			if(current.next == null){
 				return false;
 			}else{
@@ -165,72 +172,58 @@ public class SingleLinkedList<T> {
 		size--;
 		return true;
 	}
-	
-	public boolean delete(Object value){
-	      if(size == 0){
-	          return false;
-	      }
-	      Node<T> current = head;//要被删除的节点
-	      Node<T> previous = head;//要被删除节点的上一个节点
-	      while(current.item != value){
-	          if(current.next == null){
-	        	  //此时链表中没有找到想要删除的元素
-	              return false;
-	          }else{
-	              previous = current;
-	              current = current.next;
-	          }
-	      }
-	      System.out.println("测试:"+current.item);
-	      System.out.println("测试:"+previous.item);
-	      //如果删除的节点是第一个节点
-	      if(current == head){
-	          head = current.next;
-	          size--;
-	      }else{//删除的节点不是第一个节点
-	          previous.next = current.next;
-	         size--;
-	      }
-	      return true;
-      }
-	
-	/* A B O D
-	 * 根据节点删除其下一个节点
-	 * 
+
+	/*
+	 * 删除指定位置的元素
+	 * 步骤:
+	 * ①首先定义两个节点:要被删除的节点(current)和要被删除节点的上一个节点(previous)
+	 * ②根据下标从头开始找到要被删除的节点以及其上一个节点
+	 * ③如果要被删除的节点是头结点,就直接将头结点的下一个节点设为新的头结点
+	 * ④否则就将previous的next指向current的next
+	 * ⑤再将size-1
 	 */
-	private T unLink(Node<T> x){
-		
-		T element = x.next.item;
-		x.next = x.next.next;
-//		x.next.item = null;
-		size--;
-		return element;
-	}
-	
-	public T remove(int index){
-		if(index == 0){
-			Node<T> f = head;
-			head = f.next;
-			f.next = null;
-			f.item = null;
-			size--;
-			return head.item;
-		}else{
-			return unLink(node(index - 1));
+	public T remove(int index) throws Exception{
+		T item = null;
+		checkIndex(index);
+		Node<T> current = head;//要被删除的节点
+		Node<T> previous = head;//要被删除节点的上一个节点
+		for(int i = 0;i < index;i++){
+			previous = current;
+			current = current.next;
 		}
+		item = current.item;
+		if(current == head){
+			head = head.next;
+		}else{
+			previous.next = current.next;
+		}
+		size--;
+		return item;
 	}
 	
-	public boolean set(int index, T t){
-		if(index < 0 && index > size-1){
-			System.out.println("下标越界");
-			return false;
-		}else{
-			Node<T> l = head;
-			for(int i = 0;i < index;i++){
-				l = l.next;
-			}
-			l.item = t;
-			return true;
+	/*
+	 * 更改指定位置元素值
+	 * 步骤:
+	 * ①判断下标是否越界
+	 * ②根据下标找到指定节点
+	 * ③然后将节点的值改掉
+	 */
+	public boolean set(int index, T t) throws Exception{
+		checkIndex(index);
+		Node<T> l = head;
+		for(int i = 0;i < index;i++){
+			l = l.next;
+		}
+		l.item = t;
+		return true;
+	}
+	
+	/*
+	 * 下标检查
+	 */
+	private void checkIndex(int index) throws Exception{
+		if(index < 0 || index > size-1){
+			throw new Exception("下标异常");
 		}
 	}
 
