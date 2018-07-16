@@ -147,6 +147,9 @@ public class TestChannel {
 		outChannel.close();
 	}
 	
+	/*
+	 * 分散读取与聚集写入
+	 */
 	@Test
 	public void test4() throws Exception{
 		RandomAccessFile raf1 = new RandomAccessFile("ok.txt", "rw");

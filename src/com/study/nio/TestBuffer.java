@@ -36,7 +36,7 @@ public class TestBuffer {
 
 	@Test
 	public void test1(){
-		String str = "abcde";
+		String str = "abcde";	
 		//1.分配一个指定大小的缓冲区
 		ByteBuffer bbf = ByteBuffer.allocate(1024);
 		System.out.println("--------allocate()-----------");

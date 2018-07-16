@@ -20,6 +20,10 @@ public class TestThread {
 		//3.创建子类的对象
 		SubThread sub1 = new SubThread();
 		SubThread sub2 = new SubThread();
+		sub1.setName("线程1");
+		sub2.setName("线程2");
+//		sub1.setPriority(10);
+//		sub2.setPriority(1);
 		//4.调用线程的start(): 启动此线程;调用相应的run()方法
 		//一个线程只能够执行一次start()
 		//不能通过子类的run()方法去启动一个线程
@@ -27,8 +31,8 @@ public class TestThread {
 		
 		sub2.start();
 		
-		for(int i = 1;i <= 100;i++){
-			System.out.println(Thread.currentThread().getName()+":"+i);
-		}
+//		for(int i = 1;i <= 100;i++){
+//			System.out.println(Thread.currentThread().getName()+":"+i);
+//		}
 	}
 }

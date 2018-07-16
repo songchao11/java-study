@@ -12,6 +12,12 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+/*
+ * 1.使用NIO完成网络通信的三个核心
+ * ①通道(Channel):负责连接
+ * ②缓冲区(Buffer):负责数据的存取
+ * ③选择器(Selector):是SelectableChannel的多路复用器.用于监控SelectableChannel的IO状况
+ */
 public class TestNonBlockingNIO {
 
 	@Test
@@ -31,6 +37,11 @@ public class TestNonBlockingNIO {
 		sChannel.close();
 	}
 	
+	/*
+	 * 选择器(Selector)是可选择通道的多路复用器,可用作可以进入非阻塞模式的特殊类型的通道.
+	 * 它可以检查一个或多个NIO通道,并确定哪个通道准备好了可以进行通信,即读取或写入.
+	 * 用于使用单个线程处理多个通道
+	 */
 	@Test
 	public void server() throws IOException{
 		//1.获取通道

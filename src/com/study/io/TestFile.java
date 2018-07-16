@@ -27,8 +27,11 @@ public class TestFile {
 		File file4 = new File("D:\\test\\kk.txt");
 		System.out.println(file1.getName());
 		System.out.println(file1.getPath());
+		//getAbsoluteFile()返回的是一个File类对象，这个File对象表示是当前File对象的绝对路径名形式
 		System.out.println(file1.getAbsoluteFile());
+		//getAbsolutePath()返回的是一个字符串，这个字符串就是当前File对象的绝对路径名的字符串形式
 		System.out.println(file1.getAbsolutePath());
+		//获取文件父目录
 		System.out.println(file1.getParent());
 		System.out.println("--------------------");
 		System.out.println(file3.getName());
@@ -36,7 +39,7 @@ public class TestFile {
 		System.out.println(file3.getAbsoluteFile());
 		System.out.println(file3.getAbsolutePath());
 		System.out.println(file3.getParent());
-		
+		//重命名
 		boolean f = file1.renameTo(file4);
 		System.out.println(f);
 	}

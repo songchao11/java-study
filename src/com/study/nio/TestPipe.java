@@ -28,7 +28,6 @@ public class TestPipe {
 		System.out.println(new String(buf.array(), 0, len));
 		sinkChannel.close();
 		sourceChannel.close();
-		
 	}
 	
 }

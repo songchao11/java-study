@@ -17,11 +17,11 @@ public class TestRandomAccessFile {
 	
 	@Test
 	public void test1(){
-		RandomAccessFile raf1 = null;
-		RandomAccessFile raf2 = null;
+		RandomAccessFile raf1 = null;//读取文件随机流
+		RandomAccessFile raf2 = null;//写入文件随机流
 		try {
 			raf1 = new RandomAccessFile(new File("hi.txt"), "r");
-			raf2 = new RandomAccessFile(new File("hi1.txt"), "rw");
+			raf2 = new RandomAccessFile(new File("hi2.txt"), "rw");
 			byte[] b = new byte[20];
 			int len;
 			while((len = raf1.read(b)) != -1){
@@ -45,7 +45,5 @@ public class TestRandomAccessFile {
 				}
 			}
 		}
-		
 	}
-
 }

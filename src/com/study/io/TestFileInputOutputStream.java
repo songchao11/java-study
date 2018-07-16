@@ -48,7 +48,6 @@ public class TestFileInputOutputStream {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -58,7 +57,6 @@ public class TestFileInputOutputStream {
 	@Test
 	public void testFileInputStream2(){
 		FileInputStream fis = null;
-		
 		try {
 			File file = new File("hello.txt");
 			fis = new FileInputStream(file);
@@ -78,7 +76,6 @@ public class TestFileInputOutputStream {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -99,12 +96,10 @@ public class TestFileInputOutputStream {
 				try {
 					fos.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		
 	}
 	
 	@Test
