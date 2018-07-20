@@ -65,6 +65,5 @@ public class TestAOP {
 		Object obj1 = MyProxy.getProxyInstance(nick);
 		ClothFactory cf = (ClothFactory)obj1;
 		cf.productCloth();
-		
 	}
 }

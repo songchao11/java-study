@@ -20,8 +20,11 @@ class RealSubject implements Subject{
 	}
 }
 
+/*
+ * 调用InvocationHandler实现接口,创建动态代理对象
+ */
 class MyInvocationHandler implements InvocationHandler{
-	Object obj;//实现了接口的被代理类的对象的声明
+	Object obj;//实现了接口的被代理类的对象的声明(目标对象)
 	//作用:①给被代理类的对象实例化 ②返回一个代理类的对象
 	public Object blind(Object obj){
 		this.obj = obj;
@@ -47,6 +50,5 @@ public class TestProxy {
 		Object obj = handler.blind(real);
 		Subject sub = (Subject)obj;//此时sub就是代理类对象
 		sub.action();//转到对InvacationHandler接口的实现类的invoke()方法的调用
-		
 	}
 }
