@@ -41,7 +41,7 @@ class AtomicDemo implements Runnable{
 	}
 
 	public int getSerialNumber() {
-		return serialNumber.getAndIncrement();
+		return serialNumber.getAndIncrement();//×ÔÔöËã·¨
 	}
 	
 }
